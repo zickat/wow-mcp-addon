@@ -18,6 +18,10 @@ import shutil
 import argparse
 from pathlib import Path
 
+# Force UTF-8 sur Windows (evite UnicodeEncodeError avec CP1252)
+if sys.platform == "win32":
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")  # type: ignore[attr-defined]
+
 ROOT = Path(__file__).parent
 ENTRY = ROOT / "wow-mcp" / "server.py"
 DATA_DIR = ROOT / "data"
@@ -38,7 +42,7 @@ def main() -> None:
             p = ROOT / d
             if p.exists():
                 shutil.rmtree(p)
-                print(f"🗑  Supprimé {d}/")
+                print(f"Supprime {d}/")
 
     # Vérifie que PyInstaller est installé
     try:
@@ -81,16 +85,13 @@ def main() -> None:
     exe = ROOT / "dist" / ("wow-mcp.exe" if sys.platform == "win32" else "wow-mcp")
     if exe.exists():
         size_mb = exe.stat().st_size / 1_048_576
-        print(f"\n✅ Build OK → {exe}  ({size_mb:.1f} MB)")
+        print(f"\nBuild OK -> {exe}  ({size_mb:.1f} MB)")
         print()
         print("Config Claude Desktop (claude_desktop_config.json) :")
-        if sys.platform == "win32":
-            print(f'  "command": "{exe}"')
-        else:
-            print(f'  "command": "{exe}"')
+        print(f'  "command": "{exe}"')
         print('  "args": []')
     else:
-        print("❌ Exécutable introuvable après build.")
+        print("Executable introuvable apres build.")
         sys.exit(1)
 
 if __name__ == "__main__":
