@@ -23,7 +23,7 @@ ENTRY = ROOT / "wow-mcp" / "server.py"
 DATA_DIR = ROOT / "data"
 
 def run(cmd: list[str]) -> None:
-    print("▶", " ".join(str(c) for c in cmd))
+    print(">>", " ".join(str(c) for c in cmd))
     result = subprocess.run(cmd)
     if result.returncode != 0:
         sys.exit(result.returncode)
