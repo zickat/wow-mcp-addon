@@ -1,0 +1,8 @@
+## Interface: 20504
+## Title: CharExport
+## Notes: Exporte équipement et talents via SavedVariables pour le serveur MCP local
+## Author: CharExport
+## Version: 1.0
+## SavedVariables: CharExportDB
+
+CharExport.lua

@@ -1,0 +1,492 @@
+{
+  "_meta": {
+    "version": "1.0",
+    "game": "TBC Classic Anniversary",
+    "patch": "2.4.3",
+    "notes": [
+      "Poids relatifs normalisés : 1.0 = stat de référence pour la spé.",
+      "spellPower = spell power unifié (damage+healing). Pour les healers, c'est la même stat.",
+      "hitRating / spellHitRating : cap à 202 rating (16%) pour boss lvl 73. Avec Draenei dans le groupe : 189 (15%). Vaut > 1.0 si on est sous le cap.",
+      "hitRatingBelowCap est le poids à utiliser si le personnage est sous le cap de hit.",
+      "mp5 : mana per 5 sec en combat.",
+      "Pour les physiques (melee), les stats sont attack power, crit, hit (melee), armor pen."
+    ]
+  },
+
+  "MAGE": {
+    "Arcane": {
+      "role": "dps",
+      "armor": "cloth",
+      "primaryStat": "spellPower",
+      "weights": {
+        "spellPower": 1.0,
+        "spellHitRating": 1.8,
+        "spellHitRatingAboveCap": 0.0,
+        "spellCritRating": 0.55,
+        "hasteRating": 0.6,
+        "intellect": 0.35,
+        "spirit": 0.05,
+        "mp5": 0.15,
+        "stamina": 0.05
+      },
+      "notes": "Hit cap : 202 rating (76 avec Draenei). Arcane Blast spam → SP > Hit (si sous cap) > Crit > Haste > Int."
+    },
+    "Fire": {
+      "role": "dps",
+      "armor": "cloth",
+      "primaryStat": "spellPower",
+      "weights": {
+        "spellPower": 1.0,
+        "spellHitRating": 1.7,
+        "spellHitRatingAboveCap": 0.0,
+        "spellCritRating": 0.8,
+        "hasteRating": 0.55,
+        "intellect": 0.3,
+        "spirit": 0.05,
+        "mp5": 0.1,
+        "stamina": 0.05
+      },
+      "notes": "Crit plus valorisé qu'Arcane grâce à Ignite. SP > Hit > Crit > Haste > Int."
+    },
+    "Frost": {
+      "role": "dps",
+      "armor": "cloth",
+      "primaryStat": "spellPower",
+      "weights": {
+        "spellPower": 1.0,
+        "spellHitRating": 1.7,
+        "spellHitRatingAboveCap": 0.0,
+        "spellCritRating": 0.7,
+        "hasteRating": 0.5,
+        "intellect": 0.3,
+        "spirit": 0.05,
+        "mp5": 0.1,
+        "stamina": 0.05
+      },
+      "notes": "Shatter combo valorise le crit. SP > Hit > Crit > Haste."
+    }
+  },
+
+  "WARLOCK": {
+    "Affliction": {
+      "role": "dps",
+      "armor": "cloth",
+      "primaryStat": "spellPower",
+      "weights": {
+        "spellPower": 1.0,
+        "spellHitRating": 1.8,
+        "spellHitRatingAboveCap": 0.0,
+        "spellCritRating": 0.4,
+        "hasteRating": 0.5,
+        "intellect": 0.4,
+        "spirit": 0.2,
+        "mp5": 0.2,
+        "stamina": 0.05
+      },
+      "notes": "DoT setup. SP > Hit > Haste ≈ Int > Crit. Spirit a plus de valeur (Soul Leech + Spirit tap)."
+    },
+    "Demonology": {
+      "role": "dps",
+      "armor": "cloth",
+      "primaryStat": "spellPower",
+      "weights": {
+        "spellPower": 1.0,
+        "spellHitRating": 1.8,
+        "spellHitRatingAboveCap": 0.0,
+        "spellCritRating": 0.45,
+        "hasteRating": 0.5,
+        "intellect": 0.45,
+        "spirit": 0.1,
+        "mp5": 0.2,
+        "stamina": 0.05
+      },
+      "notes": "Int valorisé (buffs pet). SP > Hit > Int > Haste > Crit."
+    },
+    "Destruction": {
+      "role": "dps",
+      "armor": "cloth",
+      "primaryStat": "spellPower",
+      "weights": {
+        "spellPower": 1.0,
+        "spellHitRating": 1.8,
+        "spellHitRatingAboveCap": 0.0,
+        "spellCritRating": 0.7,
+        "hasteRating": 0.55,
+        "intellect": 0.35,
+        "spirit": 0.1,
+        "mp5": 0.15,
+        "stamina": 0.05
+      },
+      "notes": "Crit valorisé (Ruin 5/5). SP > Hit > Crit > Haste > Int."
+    }
+  },
+
+  "PRIEST": {
+    "Holy": {
+      "role": "healer",
+      "armor": "cloth",
+      "primaryStat": "spellPower",
+      "weights": {
+        "spellPower": 1.0,
+        "spellHitRating": 0.05,
+        "spellCritRating": 0.4,
+        "hasteRating": 0.6,
+        "intellect": 0.5,
+        "spirit": 0.45,
+        "mp5": 0.6,
+        "stamina": 0.1
+      },
+      "notes": "Healer. SP > MP5 ≈ Int > Spirit > Haste > Crit. Spirit regen hors combat important."
+    },
+    "Discipline": {
+      "role": "healer",
+      "armor": "cloth",
+      "primaryStat": "spellPower",
+      "weights": {
+        "spellPower": 1.0,
+        "spellHitRating": 0.05,
+        "spellCritRating": 0.5,
+        "hasteRating": 0.55,
+        "intellect": 0.5,
+        "spirit": 0.4,
+        "mp5": 0.65,
+        "stamina": 0.1
+      },
+      "notes": "Healer/shield. MP5 > Spirit > Int. SP > MP5 > Int > Spirit > Crit > Haste."
+    },
+    "Shadow": {
+      "role": "dps",
+      "armor": "cloth",
+      "primaryStat": "spellPower",
+      "weights": {
+        "spellPower": 1.0,
+        "spellHitRating": 1.8,
+        "spellHitRatingAboveCap": 0.0,
+        "spellCritRating": 0.5,
+        "hasteRating": 0.6,
+        "intellect": 0.35,
+        "spirit": 0.3,
+        "mp5": 0.1,
+        "stamina": 0.05
+      },
+      "notes": "SP > Hit > Haste > Crit > Spirit (Vampiric Embrace). Pas de Spirit tap en raid."
+    }
+  },
+
+  "DRUID": {
+    "Balance": {
+      "role": "dps",
+      "armor": "leather",
+      "primaryStat": "spellPower",
+      "weights": {
+        "spellPower": 1.0,
+        "spellHitRating": 1.8,
+        "spellHitRatingAboveCap": 0.0,
+        "spellCritRating": 0.6,
+        "hasteRating": 0.55,
+        "intellect": 0.4,
+        "spirit": 0.1,
+        "mp5": 0.15,
+        "stamina": 0.05
+      },
+      "notes": "Moonkin. SP > Hit > Crit > Haste > Int. Lunatik 1.0→ Haste très valorisé en end-game."
+    },
+    "Feral": {
+      "role": "dps/tank",
+      "armor": "leather",
+      "primaryStat": "agility",
+      "weights": {
+        "attackPower": 1.0,
+        "agility": 1.2,
+        "strength": 0.55,
+        "critRating": 0.85,
+        "hitRating": 1.5,
+        "hitRatingAboveCap": 0.0,
+        "hasteRating": 0.3,
+        "stamina": 0.3,
+        "armor": 0.05
+      },
+      "notes": "Cat : Agi > AP > Crit > Hit. Bear tank : Agi > Stam > Armor > Def."
+    },
+    "Restoration": {
+      "role": "healer",
+      "armor": "leather",
+      "primaryStat": "spellPower",
+      "weights": {
+        "spellPower": 1.0,
+        "spellHitRating": 0.0,
+        "spellCritRating": 0.3,
+        "hasteRating": 0.7,
+        "intellect": 0.5,
+        "spirit": 0.5,
+        "mp5": 0.55,
+        "stamina": 0.1
+      },
+      "notes": "HoT healer. Haste très important (réduit cast HT/Regrowth). SP > Haste > Int ≈ Spirit > MP5."
+    }
+  },
+
+  "SHAMAN": {
+    "Elemental": {
+      "role": "dps",
+      "armor": "mail",
+      "primaryStat": "spellPower",
+      "weights": {
+        "spellPower": 1.0,
+        "spellHitRating": 1.8,
+        "spellHitRatingAboveCap": 0.0,
+        "spellCritRating": 0.7,
+        "hasteRating": 0.6,
+        "intellect": 0.4,
+        "spirit": 0.05,
+        "mp5": 0.2,
+        "stamina": 0.05
+      },
+      "notes": "SP > Hit > Crit > Haste > Int > MP5. Crit via Lightning Overload."
+    },
+    "Enhancement": {
+      "role": "dps",
+      "armor": "mail",
+      "primaryStat": "agility",
+      "weights": {
+        "attackPower": 1.0,
+        "agility": 1.1,
+        "strength": 0.7,
+        "hitRating": 1.8,
+        "hitRatingAboveCap": 0.0,
+        "critRating": 0.8,
+        "hasteRating": 0.5,
+        "spellPower": 0.3,
+        "stamina": 0.05
+      },
+      "notes": "Melee/hybrid. AP > Agi > Hit > Crit > Str > Haste. SP a un peu de valeur (shocks, LB)."
+    },
+    "Restoration": {
+      "role": "healer",
+      "armor": "mail",
+      "primaryStat": "spellPower",
+      "weights": {
+        "spellPower": 1.0,
+        "spellHitRating": 0.0,
+        "spellCritRating": 0.35,
+        "hasteRating": 0.5,
+        "intellect": 0.55,
+        "spirit": 0.2,
+        "mp5": 0.7,
+        "stamina": 0.1
+      },
+      "notes": "Chain Heal healer. MP5 très important. SP > MP5 > Int > Haste > Crit > Spirit."
+    }
+  },
+
+  "PALADIN": {
+    "Holy": {
+      "role": "healer",
+      "armor": "plate",
+      "primaryStat": "spellPower",
+      "weights": {
+        "spellPower": 1.0,
+        "spellHitRating": 0.0,
+        "spellCritRating": 0.55,
+        "hasteRating": 0.35,
+        "intellect": 0.7,
+        "spirit": 0.1,
+        "mp5": 0.75,
+        "stamina": 0.15
+      },
+      "notes": "Flash of Light/Holy Light healer. Int capitale (Divine Illumination). SP > MP5 > Int > Crit > Haste."
+    },
+    "Protection": {
+      "role": "tank",
+      "armor": "plate",
+      "primaryStat": "stamina",
+      "weights": {
+        "stamina": 1.0,
+        "defenseRating": 1.5,
+        "armor": 0.5,
+        "blockValue": 0.6,
+        "blockRating": 0.4,
+        "dodgeRating": 0.8,
+        "parryRating": 0.7,
+        "spellPower": 0.1,
+        "strength": 0.2,
+        "intellect": 0.3
+      },
+      "notes": "Tank. Def cap 490 (102.4% avoidance). Stam > Def > Dodge > Parry > Block."
+    },
+    "Retribution": {
+      "role": "dps",
+      "armor": "plate",
+      "primaryStat": "strength",
+      "weights": {
+        "strength": 1.0,
+        "attackPower": 0.5,
+        "critRating": 0.9,
+        "hitRating": 1.6,
+        "hitRatingAboveCap": 0.0,
+        "hasteRating": 0.4,
+        "spellPower": 0.1,
+        "stamina": 0.05,
+        "agility": 0.4
+      },
+      "notes": "Str > Crit > Hit (cap 9% special) > Agi > Haste. Seal/Judgement damage."
+    }
+  },
+
+  "HUNTER": {
+    "Beast Mastery": {
+      "role": "dps",
+      "armor": "mail",
+      "primaryStat": "agility",
+      "weights": {
+        "agility": 1.0,
+        "attackPower": 0.55,
+        "critRating": 0.8,
+        "hitRating": 1.5,
+        "hitRatingAboveCap": 0.0,
+        "hasteRating": 0.55,
+        "intellect": 0.3,
+        "stamina": 0.05
+      },
+      "notes": "Ranged DPS. Agi > AP > Crit > Hit > Haste > Int (mana). BM = pet damage."
+    },
+    "Marksmanship": {
+      "role": "dps",
+      "armor": "mail",
+      "primaryStat": "agility",
+      "weights": {
+        "agility": 1.0,
+        "attackPower": 0.6,
+        "critRating": 0.85,
+        "hitRating": 1.5,
+        "hitRatingAboveCap": 0.0,
+        "hasteRating": 0.6,
+        "intellect": 0.25,
+        "stamina": 0.05
+      },
+      "notes": "Agi > AP > Crit > Hit > Haste. Aimed Shot/Steady Shot rotation."
+    },
+    "Survival": {
+      "role": "dps",
+      "armor": "mail",
+      "primaryStat": "agility",
+      "weights": {
+        "agility": 1.0,
+        "attackPower": 0.55,
+        "critRating": 0.75,
+        "hitRating": 1.5,
+        "hitRatingAboveCap": 0.0,
+        "hasteRating": 0.5,
+        "intellect": 0.2,
+        "stamina": 0.05
+      },
+      "notes": "Agi > AP > Crit > Hit. Expose Weakness synergy avec raid."
+    }
+  },
+
+  "ROGUE": {
+    "Combat": {
+      "role": "dps",
+      "armor": "leather",
+      "primaryStat": "agility",
+      "weights": {
+        "agility": 1.0,
+        "attackPower": 0.55,
+        "critRating": 0.85,
+        "hitRating": 1.8,
+        "hitRatingAboveCap": 0.0,
+        "hasteRating": 0.55,
+        "strength": 0.35,
+        "stamina": 0.05
+      },
+      "notes": "Agi > AP > Hit > Crit > Haste > Str. Sword/Mace/Fist weapons. Blade Flurry."
+    },
+    "Assassination": {
+      "role": "dps",
+      "armor": "leather",
+      "primaryStat": "agility",
+      "weights": {
+        "agility": 1.0,
+        "attackPower": 0.55,
+        "critRating": 0.9,
+        "hitRating": 1.8,
+        "hitRatingAboveCap": 0.0,
+        "hasteRating": 0.4,
+        "strength": 0.3,
+        "stamina": 0.05
+      },
+      "notes": "Poison/Mutilate. Agi > AP > Crit > Hit. Daggers only."
+    },
+    "Subtlety": {
+      "role": "dps",
+      "armor": "leather",
+      "primaryStat": "agility",
+      "weights": {
+        "agility": 1.0,
+        "attackPower": 0.55,
+        "critRating": 0.8,
+        "hitRating": 1.7,
+        "hitRatingAboveCap": 0.0,
+        "hasteRating": 0.4,
+        "strength": 0.3,
+        "stamina": 0.05
+      },
+      "notes": "PvP oriented en TBC. Agi > AP > Crit > Hit."
+    }
+  },
+
+  "WARRIOR": {
+    "Arms": {
+      "role": "dps",
+      "armor": "plate",
+      "primaryStat": "strength",
+      "weights": {
+        "strength": 1.0,
+        "attackPower": 0.5,
+        "critRating": 0.85,
+        "hitRating": 1.5,
+        "hitRatingAboveCap": 0.0,
+        "hasteRating": 0.4,
+        "agility": 0.5,
+        "armorPenetration": 0.7,
+        "stamina": 0.05
+      },
+      "notes": "2H weapon. Str > Crit > Hit > ArP > Agi > Haste. Mortal Strike."
+    },
+    "Fury": {
+      "role": "dps",
+      "armor": "plate",
+      "primaryStat": "strength",
+      "weights": {
+        "strength": 1.0,
+        "attackPower": 0.5,
+        "critRating": 0.9,
+        "hitRating": 1.8,
+        "hitRatingAboveCap": 0.0,
+        "hasteRating": 0.55,
+        "agility": 0.45,
+        "armorPenetration": 0.6,
+        "stamina": 0.05
+      },
+      "notes": "Dual wield. Str > Crit > Hit (28% special / 9% yellow) > Agi > Haste. Flurry + WW."
+    },
+    "Protection": {
+      "role": "tank",
+      "armor": "plate",
+      "primaryStat": "stamina",
+      "weights": {
+        "stamina": 1.0,
+        "defenseRating": 1.5,
+        "armor": 0.5,
+        "dodgeRating": 0.9,
+        "parryRating": 0.8,
+        "blockRating": 0.4,
+        "blockValue": 0.5,
+        "strength": 0.2,
+        "hitRating": 0.3,
+        "expertise": 0.5
+      },
+      "notes": "Tank. Defense cap 490 (5.6% miss). Stam > Def > Dodge > Parry > Block."
+    }
+  }
+}

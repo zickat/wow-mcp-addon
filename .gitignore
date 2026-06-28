@@ -1,0 +1,22 @@
+# Build artifacts
+dist/
+build/
+*.spec
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+wow-mcp/__pycache__/
+
+# Node
+node_modules/
+
+# macOS
+.DS_Store
+
+# Env local
+.env
+
+# WoW SavedVariables (données perso)
+*.lua.bak
